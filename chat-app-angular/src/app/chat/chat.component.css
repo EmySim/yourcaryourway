@@ -1,0 +1,31 @@
+/* src/app/chat/chat.component.css */
+.chat-container {
+  width: 300px;
+  margin: 20px auto;
+  font-family: Arial, sans-serif;
+}
+
+.messages {
+  height: 300px;
+  overflow-y: auto;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.sent {
+  text-align: right;
+  background-color: #d4f7d4;
+  margin: 5px;
+  padding: 8px;
+  border-radius: 5px;
+}
+
+.received {
+  text-align: left;
+  background-color: #f1f1f1;
+  margin: 5px;
+  padding: 8px;
+  border-radius: 5px;
+}
