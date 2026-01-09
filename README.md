@@ -1,345 +1,234 @@
-# 💬 POC Chat Application - Angular + Spring Boot
+# 💬 Chat Application - Angular + Spring Boot
 
 <div align="center">
 
-![Angular](https://img.shields.io/badge/Angular-18.2-red?style=flat-square&logo=angular)
-![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.3-green?style=flat-square&logo=spring)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.5-blue?style=flat-square&logo=typescript)
-![Java](https://img.shields.io/badge/Java-17-orange?style=flat-square&logo=java)
-![WebSocket](https://img.shields.io/badge/WebSocket-SockJS-yellow?style=flat-square)
-![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)
+Une application de **chat en temps réel** utilisant **WebSockets/STOMP** pour la communication instantanée entre un client Angular et un serveur Spring Boot.
 
-Une application de chat en temps réel moderne et performante. Échangez des messages instantanément via une connexion WebSocket sécurisée entre le frontend Angular et le backend Spring Boot.
-
-[🚀 Démarrage rapide](#démarrage-rapide) • [📋 Prérequis](#prérequis) • [🏗️ Architecture](#architecture) • [💻 Utilisation](#utilisation)
+[![Angular](https://img.shields.io/badge/Angular-18-red)](https://angular.io)
+[![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.3-green)](https://spring.io/projects/spring-boot)
+[![Java](https://img.shields.io/badge/Java-17-orange)](https://www.oracle.com/java/)
+[![License](https://img.shields.io/badge/license-MIT-blue)](#)
 
 </div>
 
 ---
 
-## 🌟 Caractéristiques
-
-✅ **Messagerie en temps réel** - Communication instantanée via WebSocket  
-✅ **Interface utilisateur intuitive** - Chat moderne et réactif avec Angular 18  
-✅ **Architecture scalable** - Spring Boot pour une backend robuste et performante  
-✅ **Sessions uniques** - Identification automatique des utilisateurs  
-✅ **Affichage contextuel** - Messages alignés à droite pour l'expéditeur, à gauche pour les autres  
-✅ **Support multi-sessions** - Plusieurs utilisateurs peuvent discuter simultanément  
-
----
-
 ## 📋 Prérequis
 
-Avant de démarrer, assurez-vous d'avoir les éléments suivants installés :
-
-| Technologie | Version |
-|-------------|---------|
-| **Node.js** | ≥ 18.x |
-| **npm** | ≥ 9.x |
-| **Angular CLI** | ≥ 18.x |
-| **Java JDK** | 17+ |
-| **Maven** | ≥ 3.8.x |
-
-```bash
-# Vérifier les versions
-node --version
-npm --version
-ng version
-java -version
-mvn --version
-```
+| Technologie | Version minimale | Vérification |
+|---|---|---|
+| **Node.js** | ≥ 18.x | `node --version` |
+| **Java JDK** | 17+ | `java -version` |
+| **Maven** | ≥ 3.8.x | `mvn --version` |
+| **npm** | ≥ 9.x | `npm --version` |
 
 ---
 
-## 🏗️ Architecture
+## 📁 Structure du Projet
 
 ```
-Chat-Application/
-├── 📁 chat-app-angular/          # Frontend Angular 18
-│   ├── src/
-│   │   ├── app/
-│   │   │   ├── chat/             # Composant principal du chat
-│   │   │   ├── services/         # Service WebSocket
-│   │   │   └── app.component.ts  # Composant racine
-│   │   ├── index.html
-│   │   └── styles.css
-│   ├── angular.json
-│   └── package.json
+Chat-Application-Angular-Spring-Boot-main/
 │
-└── 📁 chat-server/               # Backend Spring Boot 3.3
-    ├── src/
-    │   ├── main/
-    │   │   ├── java/
-    │   │   │   └── com/example/chat_server/
-    │   │   │       ├── ChatServerApplication.java
-    │   │   │       ├── WebSocketConfig.java
-    │   │   │       ├── controller/
-    │   │   │       ├── handler/
-    │   │   │       └── model/
-    │   │   └── resources/
-    │   │       └── application.properties
-    │   └── test/
-    ├── pom.xml
-    └── mvnw
+├── 📁 chat-app-angular/                    # Frontend Angular 18
+│   ├── src/app/
+│   │   ├── chat/
+│   │   │   ├── chat.component.ts           # Logique STOMP/WebSocket
+│   │   │   ├── chat.component.html         # Template
+│   │   │   └── chat.component.css          # Styles
+│   │   ├── services/
+│   │   │   └── websocket.service.ts        # Service HTTP/REST
+│   │   └── app.config.ts
+│   ├── package.json                        # Dépendances Angular
+│   └── angular.json
+│
+├── 📁 chat-server/                         # Backend Spring Boot 3.3
+│   ├── src/main/java/com/chat_server/
+│   │   ├── ChatServerApplication.java      # Point d'entrée
+│   │   ├── WebSocketConfig.java            # Configuration STOMP
+│   │   ├── controller/
+│   │   │   ├── ChatController.java         # Endpoints WebSocket
+│   │   │   └── MessageRestController.java  # Endpoints REST
+│   │   ├── service/
+│   │   │   └── ChatService.java            # Stockage en mémoire
+│   │   ├── model/
+│   │   │   └── Message.java                # Modèle Message
+│   │   └── exception/
+│   │       └── GlobalExceptionHandler.java # Gestion erreurs
+│   ├── pom.xml                             # Dépendances Maven
+│   └── mvnw
+│
+├── README.md (ce fichier)
+├── QUICK_START.md                          # Guide de démarrage rapide
+└── ARCHITECTURE_DIAGRAMS.md                # Diagrammes d'architecture
 ```
-
-### Stack Technologique
-
-**Frontend:**
-- Angular 18.2
-- TypeScript 5.5
-- RxJS 7.8
-- SockJS + STOMP
-- Angular Forms Module
-
-**Backend:**
-- Spring Boot 3.3.5
-- Spring WebSocket
-- Spring Web
-- Java 17
-- Maven
 
 ---
 
-## 🚀 Démarrage rapide
+## 🚀 Démarrage Rapide
 
-### 1️⃣ Cloner le repository
-
-```bash
-git clone <votre-url-repo>
-cd Chat-Application-Angular-Spring-Boot-main
-```
-
-### 2️⃣ Démarrer le Backend (Spring Boot)
+### 1️⃣ Démarrer le Backend (Spring Boot)
 
 ```bash
 cd chat-server
-
-# Construire et lancer l'application
-mvn clean install
 mvn spring-boot:run
-
-# Le serveur démarre sur http://localhost:8080
 ```
 
-✅ **Vérification:** Le serveur WebSocket écoute sur `ws://localhost:8080/chat`
+**Vérification :**
+- ✅ Logs : `[CONFIG] Configuration de l'endpoint STOMP '/chat' avec SockJS`
+- ✅ Serveur accessible sur `ws://localhost:8080/chat`
+- ✅ REST API disponible sur `http://localhost:8080/api/messages`
 
-### 3️⃣ Démarrer le Frontend (Angular)
+### 2️⃣ Démarrer le Frontend (Angular)
 
 ```bash
 cd chat-app-angular
-
-# Installer les dépendances
 npm install
-
-# Lancer le serveur de développement
-npm start
-
-# L'application se lance sur http://localhost:4200
+npx ng serve
 ```
 
-✅ **L'application est prête!** Ouvrez [http://localhost:4200](http://localhost:4200) dans votre navigateur.
-
----
-
-## 💻 Utilisation
-
-1. **Ouvrez l'application** sur [http://localhost:4200](http://localhost:4200)
-2. **Écrivez un message** dans le champ de saisie
-3. **Cliquez sur "Envoyer"** ou appuyez sur Entrée
-4. **Regardez la magie opérer** - Les messages apparaissent en temps réel!
-5. **Ouvrez un nouvel onglet** pour simuler plusieurs utilisateurs
-
-### Exemple de flux d'interaction
-
-```
-User A                          User B
-  │                               │
-  ├─── "Bonjour!" ──WebSocket──> ││
-  │                              │ ├─ Message reçu
-  │    ◄────── "Salut!" ─────────┤
-  │                               │
-```
-
----
-
-## 📡 Flux de Communication WebSocket
-
-### Configuration serveur (WebSocketConfig.java)
-
-- **Endpoint:** `/chat` 
-- **Message broker:** `/topic`
-- **Application prefix:** `/app`
-- **Origines autorisées:** `http://localhost:4200`
-
-### Flux d'une session
-
-```
-Angular Client (4200)          Spring Boot (8080)
-       │                              │
-       ├─ SockJS Connection ──────────>
-       ├─ STOMP Subscribe /topic ───────>
-       |                              │
-       ├─ Send Message /app/chat ────>├─ Process
-       │                              │
-       <──── Broadcast /topic ────────┤
-       │ (reçu par tous)              │
-```
-
----
-
-## 🔧 Configuration
-
-### Backend - application.properties
-
-```properties
-server.port=8080
-spring.application.name=chat-server
-```
-
-### Frontend - Connexion WebSocket (chat.component.ts)
-
-```typescript
-// Configuration actuelle
-{
-  webSocketFactory: () => new SockJS('http://localhost:8080/chat')
-}
-```
-
-**⚠️ Adaptez l'URL du serveur selon votre environnement (dev, prod)**
-
----
-
-## 📦 Scripts disponibles
-
-### Frontend Angular
-
+Ou si Angular CLI est installé globalement :
 ```bash
-npm start              # Démarrer le serveur de développement
-npm run build         # Build pour la production
-npm test              # Lancer les tests unitaires
-npm run watch         # Watch mode pour le développement
+ng serve
 ```
 
-### Backend Spring Boot
-
-```bash
-mvn clean install     # Construire le projet
-mvn spring-boot:run  # Lancer l'application
-mvn test             # Exécuter les tests
-```
+**Vérification :**
+- ✅ Application accessible sur `http://localhost:4200`
+- ✅ Console logs : WebSocket connection successful
 
 ---
 
-## 🧪 Tests
+## 📡 Stack Technologique
 
-### Tests Angular
+### Frontend (Angular)
+- **Framework:** Angular 18
+- **Langage:** TypeScript 5.5
+- **WebSocket:** @stomp/stompjs, SockJS
+- **HTTP:** HttpClient (Angular)
 
-```bash
-cd chat-app-angular
-npm test              # Tests unitaires avec Karma
+### Backend (Spring Boot)
+- **Framework:** Spring Boot 3.3
+- **WebSocket:** Spring WebSocket + STOMP
+- **Serveur:** Embedded Tomcat
+- **Langage:** Java 17
+
+---
+
+## 🔄 Flux de Communication
+
+L'application utilise une **architecture asynchrone** basée sur STOMP/WebSocket pour une communication bidirectionnelle en temps réel.
+
+### Diagramme du Flux
+
+```
+┌─ Angular Client (localhost:4200)          Spring Boot (localhost:8080) ─┐
+│                                                                          │
+│  (1) Connexion WebSocket/SockJS                                         │
+│      └─────────────────────────────────────────────────> [WebSocket]    │
+│                                                                          │
+│  (2) Abonnement au topic /topic/messages                                │
+│      └─────────────────────────────────────────────────> [Broker]       │
+│                                                                          │
+│  (3) Envoi d'un message via /app/chat                                   │
+│      └─────────────────────────────────────────────────> [Controller]   │
+│                                                          [Service]       │
+│  (4) Message diffusé à tous les clients abonnés                         │
+│      <─────────────────────────────────────────────────── [Broker]      │
+│                                                                          │
+│  ✓ Réception instantanée du message                                     │
+│      [Affichage dans le chat]                                           │
+│                                                                          │
+└──────────────────────────────────────────────────────────────────────────┘
 ```
 
-### Tests Spring Boot
+### Endpoints
 
-```bash
-cd chat-server
-mvn test
-```
+| Type | Destination | Utilisation | Fichier |
+|------|---|---|---|
+| **PUBLISH** | `/app/chat` | Client envoie un message | ChatController.java |
+| **SUBSCRIBE** | `/topic/messages` | Clients reçoivent les messages | ChatController.java |
+| **REST GET** | `/api/messages` | Récupère l'historique | MessageRestController.java |
+| **REST POST** | `/api/messages` | Ajoute un message (fallback) | MessageRestController.java |
+
+---
+
+## 💻 Utilisation de l'Application
+
+### Étapes
+
+1. **Ouvrir deux navigateurs** (ou deux onglets) sur `http://localhost:4200`
+
+2. **Sélectionner un rôle :**
+   - Client
+   - Helpdesk
+
+3. **Envoyer un message :**
+   - Tapez votre message
+   - Appuyez sur Entrée ou cliquez sur "Envoyer"
+
+4. **Observez la communication en temps réel :**
+   - Le message s'affiche instantanément dans votre session
+   - Les autres clients abonnés reçoivent le message immédiatement
+
+### Caractéristiques
+
+✅ **Communication en temps réel** via WebSocket  
+✅ **Support de plusieurs rôles** (Client/Helpdesk)  
+✅ **Stockage en mémoire** des messages  
+✅ **CORS configuré** pour Angular  
+✅ **Gestion des erreurs** globale  
+✅ **API REST** pour fallback HTTP  
 
 ---
 
 ## 🐛 Dépannage
 
-| Problème | Solution |
-|----------|----------|
-| **Connexion WebSocket refusée** | Vérifiez que le backend tourne sur `http://localhost:8080` |
-| **CORS Error** | Vérifiez `WebSocketConfig.java` - `setAllowedOrigins("http://localhost:4200")` |
-| **Port 8080 déjà utilisé** | Changez le port dans `application.properties` ou tuez le processus |
-| **Port 4200 déjà utilisé** | `ng serve --port 4300` |
-| **Messages ne s'affichent pas** | Ouvrez la console (`F12`) et vérifiez les erreurs WebSocket |
+| Problème | Cause | Solution |
+|---|---|---|
+| **WebSocket connection failed** | Backend non démarré | Vérifier : `mvn spring-boot:run` sur le port 8080 |
+| **CORS Error** | Origine non autorisée | Vérifier `WebSocketConfig.java` : `.setAllowedOrigins("http://localhost:4200")` |
+| **Cannot find module '@stomp/stompjs'** | Dépendances npm non installées | Exécuter `npm install` dans `chat-app-angular/` |
+| **Module 'sockjs-client' not found** | Types TypeScript manquants | Vérifier `@types/sockjs-client` dans `package.json` |
+| **No static resource .well-known/appspecific/com.chrome.devtools.json** | Chrome DevTools requête 404 (inoffensif) | ⚠️ Avertissement cosmétique - aucune action requise |
+| **Messages en double** | Logique de filtrage sessionId manquante | Vérifier `receiveMessage()` : `if (sender !== this.sessionId)` |
+| **ng: command not found** | Angular CLI non installé localement | Utiliser `npx ng serve` ou installer globalement : `npm install -g @angular/cli` |
 
 ---
 
-## 📚 Ressources Utiles
+## 📚 Documentation Complète
 
-- [Documentation Angular 18](https://angular.dev)
-- [Spring Boot WebSocket Guide](https://spring.io/guides/gs/messaging-stomp-websocket/)
-- [STOMP over WebSocket](https://stomp.github.io/)
-- [SockJS Documentation](https://github.com/sockjs/sockjs-client)
+Pour plus de détails, consultez :
 
----
-
-## 🤝 Contribuer
-
-Les contributions sont les bienvenues! Pour proposer des améliorations:
-
-1. Fork le projet
-2. Créez une branche (`git checkout -b feature/amelioration`)
-3. Commitez vos changements (`git commit -m 'Ajout de la feature'`)
-4. Poussez vers la branche (`git push origin feature/amelioration`)
-5. Ouvrez une Pull Request
-
-### Idées d'améliorations
-
-- [ ] Authentification utilisateur
-- [ ] Persistance des messages (base de données)
-- [ ] Salons de chat multiples
-- [ ] Notifications en temps réel
-- [ ] Upload d'images/fichiers
-- [ ] Historique des messages
-- [ ] Dark/Light theme
-- [ ] Indicateur "en train de taper"
+- **[QUICK_START.md](./QUICK_START.md)** — Guide pas-à-pas complet
+- **[ARCHITECTURE_DIAGRAMS.md](./ARCHITECTURE_DIAGRAMS.md)** — Diagrammes détaillés
+- **[SYNCHRONOUS_ARCHITECTURE.md](./SYNCHRONOUS_ARCHITECTURE.md)** — Architecture synchrone expliquée
 
 ---
 
-## 📄 Licence
+## 🔐 Architecture de Sécurité
 
-Ce projet est sous licence MIT. Consultez le fichier [LICENSE](LICENSE) pour plus de détails.
+### CORS
+- ✅ Frontend autorisé : `http://localhost:4200`
+- ✅ Backend : Spring WebSocket CORS configuré
 
-2. **Configure the application:**
-   - Ensure \`src/main/resources/application.properties\` is correctly configured for WebSocket.
-
-3. **Run the Spring Boot server:**
-   \`\`\`bash
-   mvn spring-boot:run
-   \`\`\`
-   The server should now be running on **http://localhost:8080**.
-
-### **3. Setting Up the Frontend (Angular)**
-
-1. **Navigate to the Angular project directory:**
-   \`\`\`bash
-   cd ../chat-app-angular
-   \`\`\`
-
-2. **Install dependencies:**
-   \`\`\`bash
-   npm install
-   \`\`\`
-
-3. **Run the Angular app:**
-   \`\`\`bash
-   ng serve
-   \`\`\`
-   The frontend should now be running on **http://localhost:4200**.
+### Validation
+- ✅ Messages non vides
+- ✅ Gestion des exceptions centralisée
+- ✅ Logs structurés avec SLF4J
 
 ---
 
-## **Usage**
+## 📈 Points de Scalabilité
 
-- Open multiple browser tabs or windows and navigate to **http://localhost:4200**.
-- Send messages in one window, and they will appear in real-time on all other open instances of the application.
+Pour une utilisation en production :
+
+1. **Remplacer le Simple Broker** par RabbitMQ ou ActiveMQ
+2. **Ajouter une base de données** pour la persistance (PostgreSQL, MongoDB)
+3. **Implémenter l'authentification** (JWT, OAuth2)
+4. **Ajouter les tests unitaires** (JUnit, Jest)
+5. **Configurer le load balancing** (Nginx, HAProxy)
 
 ---
 
-## **Configuration Details**
+## 📄 License
 
-### **WebSocket Configuration**
-
-The WebSocket connection is established via the \`/chat\` endpoint on the Spring Boot server. Ensure CORS settings in \`ChatServerApplication.java\` allow requests from **http://localhost:4200**.
-
-\`\`\`java
-cors.setInitParameter(CrossOriginFilter.ALLOWED_ORIGINS_PARAM, "http://localhost:4200");
-\`\`\`
-
+MIT License - Libre d'utilisation
