@@ -47,7 +47,6 @@ Chat-Application-Angular-Spring-Boot-main/
 │   │   ├── WebSocketConfig.java            # Configuration STOMP
 │   │   ├── controller/
 │   │   │   ├── ChatController.java         # Endpoints WebSocket
-│   │   │   └── MessageRestController.java  # Endpoints REST
 │   │   ├── service/
 │   │   │   └── ChatService.java            # Stockage en mémoire
 │   │   ├── model/
@@ -57,9 +56,7 @@ Chat-Application-Angular-Spring-Boot-main/
 │   ├── pom.xml                             # Dépendances Maven
 │   └── mvnw
 │
-├── README.md (ce fichier)
-├── QUICK_START.md                          # Guide de démarrage rapide
-└── ARCHITECTURE_DIAGRAMS.md                # Diagrammes d'architecture
+├── README.md 
 ```
 
 ---
@@ -180,30 +177,6 @@ L'application utilise une **architecture asynchrone** basée sur STOMP/WebSocket
 
 ---
 
-## 🐛 Dépannage
-
-| Problème | Cause | Solution |
-|---|---|---|
-| **WebSocket connection failed** | Backend non démarré | Vérifier : `mvn spring-boot:run` sur le port 8080 |
-| **CORS Error** | Origine non autorisée | Vérifier `WebSocketConfig.java` : `.setAllowedOrigins("http://localhost:4200")` |
-| **Cannot find module '@stomp/stompjs'** | Dépendances npm non installées | Exécuter `npm install` dans `chat-app-angular/` |
-| **Module 'sockjs-client' not found** | Types TypeScript manquants | Vérifier `@types/sockjs-client` dans `package.json` |
-| **No static resource .well-known/appspecific/com.chrome.devtools.json** | Chrome DevTools requête 404 (inoffensif) | ⚠️ Avertissement cosmétique - aucune action requise |
-| **Messages en double** | Logique de filtrage sessionId manquante | Vérifier `receiveMessage()` : `if (sender !== this.sessionId)` |
-| **ng: command not found** | Angular CLI non installé localement | Utiliser `npx ng serve` ou installer globalement : `npm install -g @angular/cli` |
-
----
-
-## 📚 Documentation Complète
-
-Pour plus de détails, consultez :
-
-- **[QUICK_START.md](./QUICK_START.md)** — Guide pas-à-pas complet
-- **[ARCHITECTURE_DIAGRAMS.md](./ARCHITECTURE_DIAGRAMS.md)** — Diagrammes détaillés
-- **[SYNCHRONOUS_ARCHITECTURE.md](./SYNCHRONOUS_ARCHITECTURE.md)** — Architecture synchrone expliquée
-
----
-
 ## 🔐 Architecture de Sécurité
 
 ### CORS
@@ -214,21 +187,3 @@ Pour plus de détails, consultez :
 - ✅ Messages non vides
 - ✅ Gestion des exceptions centralisée
 - ✅ Logs structurés avec SLF4J
-
----
-
-## 📈 Points de Scalabilité
-
-Pour une utilisation en production :
-
-1. **Remplacer le Simple Broker** par RabbitMQ ou ActiveMQ
-2. **Ajouter une base de données** pour la persistance (PostgreSQL, MongoDB)
-3. **Implémenter l'authentification** (JWT, OAuth2)
-4. **Ajouter les tests unitaires** (JUnit, Jest)
-5. **Configurer le load balancing** (Nginx, HAProxy)
-
----
-
-## 📄 License
-
-MIT License - Libre d'utilisation
